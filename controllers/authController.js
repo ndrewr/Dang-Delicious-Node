@@ -19,6 +19,8 @@ exports.isLoggedIn = (req, res, next) => {
     next();
   }
 
-  req.flash('error', 'Please login first to continue.');
-  res.redirect('/login');
+  else {
+    req.flash('error', 'Please login first to continue.');
+    res.redirect('/login');
+  }
 }
