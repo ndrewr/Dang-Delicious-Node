@@ -1,5 +1,6 @@
 // const axios = require('axios');
 import axios from 'axios';
+import dompurify from 'dompurify';
 
 function searchResultsHTML(stores) {
   return stores.map(store => {
@@ -20,7 +21,6 @@ function typeAhead(search) {
   const searchResults = search.querySelector('.search__results');
 
   searchInput.on('input', function() {
-    console.log(this.value);
     if (!this.value) {
       searchResults.style.display = 'none';
       return; // stop query
@@ -31,24 +31,24 @@ function typeAhead(search) {
     // searchRresults.innerHTML = '';
 
     axios
-    .get(`/api/search?q=${this.value}`)
+    .get(`/api/v1/search?q=${this.value}`)
     .then(res => {
-      console.log(res.data);
+      console.log('data', res.data);
       if (res.data.length) {
         // const html = searchResultsHTML(res.data);
-        searchResults.innerHTML = searchResultsHTML(res.data);
+        searchResults.innerHTML = dompurify.sanitize(searchResultsHTML(res.data));
         return;
       }
 
       // no results; inform user
-      searchResults.innerHTML = `
+      searchResults.innerHTML = dompurify.sanitize(`
         <div class="search__result">
           No results for ${this.value} found!
         </div>
-      `;
+      `);
     })
     .catch(err => {
-      console.error(err);
+      console.error('ruhroh', err);
     });
   });
 
@@ -57,7 +57,7 @@ function typeAhead(search) {
     const keycode = e.keycode;
 
     // if they arent pressing up down or enter, ignore
-    if (![38, 40. 13].includes(keycode)) {
+    if (![38, 40, 13].includes(keycode)) {
       return;
     }
 

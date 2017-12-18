@@ -58,3 +58,5 @@ typings/
 .env
 *.env
 
+# asset build folder
+public/dist

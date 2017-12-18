@@ -137,5 +137,5 @@ exports.searchStores = async (req, res) => {
   })
   .limit(5);
 
-  res,json(stores);
+  res.json(stores);
 }
