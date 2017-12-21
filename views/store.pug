@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_reviewForm
+include mixins/_review
 
 block content
   .single
@@ -12,6 +13,7 @@ block content
   .single__details.inner
     img.single__map(src=h.staticMap(store.location.coordinates))
     p.single__location= store.location.address
+    p= store.description
 
     if store.tags
       ul.tags
@@ -21,5 +23,12 @@ block content
               span.tag__text ##{tag}
             
     if user
+      h2.title Leave a Review?
       +reviewForm(store)
+
+    if store.reviews
+      .reviews
+        each review in store.reviews
+          .review
+            +review(review)
 
