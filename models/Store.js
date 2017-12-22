@@ -95,7 +95,7 @@ storeSchema.statics.getTopStores = function() {
         as: 'reviews'
       }
     },
-    // filter for only items taht have 2 or more reviews
+    // filter for only items that have 2 or more reviews
     {
       $match: {
         'reviews.1': { $exists: true }
@@ -103,7 +103,7 @@ storeSchema.statics.getTopStores = function() {
     },
     // add a field for the average reviews
     // becuz we are using mongo v3.2 we have to specify all the fields we want to keep
-    // Note: as of v3.4 we get an operator $addField instead to avoid above
+    // Note: as of v3.4 we get an operator $addField instead to avoid this
     {
       $project: {
         photo: '$$ROOT.photo',
