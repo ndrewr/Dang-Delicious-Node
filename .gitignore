@@ -57,6 +57,13 @@ typings/
 # dotenv environment variables file
 .env
 *.env
+variables.env
+variables.env.now
+
+# misc
+.DS_Store
+.idea
+haters/
 
 # asset build folder
 public/dist
